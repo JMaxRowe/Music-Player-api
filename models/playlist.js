@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 const playlistSchema = new mongoose.Schema({
-    name: {type: String, required: ['You need to name your playlist.', true]},
+    title: {type: String, required: ['You need to title your playlist.', true]},
     songs: [
         {
             type: mongoose.Schema.Types.ObjectId, 
@@ -11,10 +11,9 @@ const playlistSchema = new mongoose.Schema({
         }],
     owner: { 
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User',
-        required: true },
+        ref: 'User',},
     coverArt: {type: String},
-    Bookmarks:{
+    userBookmarks:{
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
         default: []
     } 
