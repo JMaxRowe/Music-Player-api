@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 const playlistSchema = new mongoose.Schema({
-    name: {type: String, required: ['You need to name your playlist.', true]},
+    title: {type: String, required: ['You need to title your playlist.', true]},
     songs: [
         {
             type: mongoose.Schema.Types.ObjectId, 
