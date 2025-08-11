@@ -36,7 +36,7 @@ router.get("/:playlistId", async(req, res, next) =>{
     }
 })
 // update playlsit
-router.put("/:playlistId", async(req, res, next) =>{
+router.put("/:playlistId", verifyToken, async(req, res, next) =>{
     try {
         const { playlistId } = req.params
         const playlist = await Playlist.findById(playlistId)
@@ -52,7 +52,7 @@ router.put("/:playlistId", async(req, res, next) =>{
 })
 // delete playlist
 
-router.delete("/:playlistId", async(req, res, next) => {
+router.delete("/:playlistId", verifyToken, async(req, res, next) => {
     try {
         const { playlistId } = req.params
         const playlist = await Playlist.findById(playlistId)
