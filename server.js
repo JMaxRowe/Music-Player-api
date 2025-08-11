@@ -24,7 +24,7 @@ app.get("/protected-route", verifyToken, (req, res, next) => {
     return res.json({ message: "HIT PROTECTED ROUTE" });
 });
 
-app.get("/", async (req, res, next) => {
+app.get("/api", async (req, res, next) => {
     try {
         const playlists = await Playlist.find().populate('owner')
         const popularPlaylists = await Playlist.aggregate([

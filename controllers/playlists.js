@@ -42,7 +42,7 @@ router.put("/:playlistId", verifyToken, async(req, res, next) =>{
         const playlist = await Playlist.findById(playlistId)
         if(!playlist) throw new NotFound('Playlist not found')
         
-        if (!playlist.owner.equals(req.owner)) throw new Forbidden("You don't have the permission to edit this playlist.")
+        if (!playlist.owner.equals(req.user._id)) throw new Forbidden("You don't have the permission to edit this playlist.")
 
         const updatedPlaylist = await Playlist.findByIdAndUpdate(playlistId, req.body, {
             returnDocument: 'after'
@@ -60,7 +60,7 @@ router.delete("/:playlistId", verifyToken, async(req, res, next) => {
         const playlist = await Playlist.findById(playlistId)
         if(!playlist) throw new NotFound('Playlist not found')
 
-        if (!playlist.owner.equals(req.owner)) throw new Forbidden("You don't have the permission to delete this playlist.")
+        if (!playlist.owner.equals(req.user._id)) throw new Forbidden("You don't have the permission to delete this playlist.")
 
         await Playlist.findByIdAndDelete(playlistId)
         return res.sendStatus(204)
@@ -72,7 +72,7 @@ router.delete("/:playlistId", verifyToken, async(req, res, next) => {
 router.post("/:playlistId/bookmark", verifyToken, async (req, res, next) => {
     try {
         const {playlistId} = req.params
-        const userId = req.owner
+        const userId = req.user._id
         if (!userId) throw new Unauthorized('Authentication required')
         const bookmarkedPlaylist = await Playlist.findById(playlistId)
         if (!bookmarkedPlaylist) throw new NotFound('Playlist not found')
@@ -91,7 +91,7 @@ router.post("/:playlistId/bookmark", verifyToken, async (req, res, next) => {
 router.delete("/:playlistId/bookmark", verifyToken, async (req, res, next) => {
     try {
         const {playlistId} = req.params
-        const userId = req.owner
+        const userId = req.user._id
         if (!userId) throw new Unauthorized('Authentication required')
         const playlist = await Playlist.findById(playlistId)
         if (!playlist) throw new NotFound('Playlist not found')
