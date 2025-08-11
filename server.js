@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 
 
 import userRouter from './controllers/users.js'
-import movieRouter from './controllers/movies.js'
+//import movieRouter from './controllers/movies.js'
 
 import notFoundHandler from './middleware/notFoundHandler.js'
 import errorHandler from './middleware/errorHandler.js'
@@ -23,7 +23,7 @@ app.get('/protected-route', verifyToken, (req, res, next) => {
 })
 
 app.use('/api/auth', userRouter)
-app.use('/api/movies', playlistRouter)
+//app.use('/api/movies', playlistRouter)
 
 app.use(notFoundHandler)
 
