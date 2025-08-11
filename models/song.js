@@ -5,6 +5,7 @@ const songSchema = new mongoose.Schema({
   artist: { type: String, required: [true, `You need to add a artist.`] },
   duration: { type: String },
   album: { type: String },
+  url: { type: String },
   userLikes: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     default: [],
