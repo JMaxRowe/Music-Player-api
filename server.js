@@ -13,11 +13,13 @@ import Playlist from './models/playlist.js';
 import notFoundHandler from "./middleware/notFoundHandler.js";
 import errorHandler from "./middleware/errorHandler.js";
 import verifyToken from "./middleware/verifyToken.js";
+import cors from "cors";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(morgan("dev"));
 
 app.get("/protected-route", verifyToken, (req, res, next) => {
