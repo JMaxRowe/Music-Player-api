@@ -1,6 +1,6 @@
 import express from 'express'
 import Playlist from '../models/playlist.js'
-import { NotFound } from '../utils/errors.js'
+import { NotFound, Unauthorized } from '../utils/errors.js'
 import verifyToken from '../middleware/verifyToken.js'
 
 const router = express.Router()
@@ -64,4 +64,41 @@ router.delete("/:playlistId", verifyToken, async(req, res, next) => {
     }
 })
 
+router.post("/:playlistId/bookmark", verifyToken, async (req, res, next) => {
+    try {
+        const {playlistId} = req.params
+        const userId = req.owner
+        if (!userId) throw new Unauthorized()
+        const bookmarkedPlaylist = await Playlist.findById(playlistId)
+        if (!bookmarkedPlaylist) throw new NotFound()
+        
+        const updatedPlaylist = await Playlist.findByIdAndUpdate(
+            playlistId,
+            { $addToSet: {userBookmarks: userId} },
+            { returnDocument: 'after'}
+        )
+        return res.status(200).json(updatedPlaylist)
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.delete("/:playlistId/bookmark", verifyToken, async (req, res, next) => {
+    try {
+        const {playlistId} = req.params
+        const userId = req.owner
+        if (!userId) throw new Unauthorized()
+        const playlist = await Playlist.findById(playlistId)
+        if (!playlist) throw new NotFound()
+        
+        const updated = await Playlist.findByIdAndUpdate(
+            playlistId,
+            { $pull: { userBookmarks: userId } },
+            { returnDocument: "after" }
+        )
+    return res.status(200).json(updated)
+    } catch (error) {
+        next(error)
+    }
+})
 export default router

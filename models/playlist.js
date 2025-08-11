@@ -13,7 +13,7 @@ const playlistSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User',},
     coverArt: {type: String},
-    Bookmarks:{
+    userBookmarks:{
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
         default: []
     } 
