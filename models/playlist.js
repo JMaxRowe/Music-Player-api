@@ -12,7 +12,8 @@ const playlistSchema = new mongoose.Schema({
     owner: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User',
-        required: true },
+        required: true 
+    },
     coverArt: {type: String},
     Bookmarks:{
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
