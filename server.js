@@ -8,6 +8,8 @@ import playlistRouter from "./controllers/playlists.js";
 import songRouter from "./controllers/songs.js";
 import profileRouter from "./controllers/profile.js";
 
+import Playlist from './models/playlist.js';
+
 import notFoundHandler from "./middleware/notFoundHandler.js";
 import errorHandler from "./middleware/errorHandler.js";
 import verifyToken from "./middleware/verifyToken.js";
@@ -21,8 +23,27 @@ app.use(cors({ origin: "http://localhost:5173" }));
 app.use(morgan("dev"));
 
 app.get("/protected-route", verifyToken, (req, res, next) => {
-  return res.json({ message: "HIT PROTECTED ROUTE" });
+    return res.json({ message: "HIT PROTECTED ROUTE" });
 });
+
+app.get("/api", async (req, res, next) => {
+    try {
+        const playlists = await Playlist.find().populate('owner')
+        const popularPlaylists = await Playlist.aggregate([
+        {$addFields: {
+            bookmarkCount: {
+                $size: { $ifNull: [ '$userBookmarks', [] ] }}
+        }
+        },
+        { $sort: { bookmarkCount: -1 } },
+        { $limit: 4 }
+        ])
+        const topPlaylists = await Playlist.populate(popularPlaylists, 'owner')
+        return res.status(200).json(topPlaylists)
+    } catch (error) {
+        next(error)
+    }
+})
 
 app.use("/api/auth", userRouter);
 app.use("/api/playlists", playlistRouter);

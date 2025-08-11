@@ -1,6 +1,6 @@
 import express from 'express'
 import Playlist from '../models/playlist.js'
-import { NotFound, Unauthorized } from '../utils/errors.js'
+import { NotFound, Unauthorized, Forbidden } from '../utils/errors.js'
 import verifyToken from '../middleware/verifyToken.js'
 
 const router = express.Router()
@@ -29,19 +29,21 @@ router.get("/:playlistId", async(req, res, next) =>{
     try {
         const {playlistId} = req.params
         const playlist = await Playlist.findById(playlistId)
-        if(!playlist) throw new NotFound()
+        if(!playlist) throw new NotFound('Playlist not found')
         return res.status(200).json(playlist)
     } catch (error) {
         next(error)
     }
 })
-// update playlsit
+// update playlist
 router.put("/:playlistId", verifyToken, async(req, res, next) =>{
     try {
         const { playlistId } = req.params
         const playlist = await Playlist.findById(playlistId)
-        if(!playlist) throw new NotFound()
+        if(!playlist) throw new NotFound('Playlist not found')
         
+        if (!playlist.owner.equals(req.user._id)) throw new Forbidden("You don't have the permission to edit this playlist.")
+
         const updatedPlaylist = await Playlist.findByIdAndUpdate(playlistId, req.body, {
             returnDocument: 'after'
         })
@@ -56,7 +58,10 @@ router.delete("/:playlistId", verifyToken, async(req, res, next) => {
     try {
         const { playlistId } = req.params
         const playlist = await Playlist.findById(playlistId)
-        if(!playlist) throw new NotFound()
+        if(!playlist) throw new NotFound('Playlist not found')
+
+        if (!playlist.owner.equals(req.user._id)) throw new Forbidden("You don't have the permission to delete this playlist.")
+
         await Playlist.findByIdAndDelete(playlistId)
         return res.sendStatus(204)
     } catch (error) {
@@ -67,10 +72,10 @@ router.delete("/:playlistId", verifyToken, async(req, res, next) => {
 router.post("/:playlistId/bookmark", verifyToken, async (req, res, next) => {
     try {
         const {playlistId} = req.params
-        const userId = req.owner
-        if (!userId) throw new Unauthorized()
+        const userId = req.user._id
+        if (!userId) throw new Unauthorized('Authentication required')
         const bookmarkedPlaylist = await Playlist.findById(playlistId)
-        if (!bookmarkedPlaylist) throw new NotFound()
+        if (!bookmarkedPlaylist) throw new NotFound('Playlist not found')
         
         const updatedPlaylist = await Playlist.findByIdAndUpdate(
             playlistId,
@@ -86,10 +91,10 @@ router.post("/:playlistId/bookmark", verifyToken, async (req, res, next) => {
 router.delete("/:playlistId/bookmark", verifyToken, async (req, res, next) => {
     try {
         const {playlistId} = req.params
-        const userId = req.owner
-        if (!userId) throw new Unauthorized()
+        const userId = req.user._id
+        if (!userId) throw new Unauthorized('Authentication required')
         const playlist = await Playlist.findById(playlistId)
-        if (!playlist) throw new NotFound()
+        if (!playlist) throw new NotFound('Playlist not found')
         
         const updated = await Playlist.findByIdAndUpdate(
             playlistId,
