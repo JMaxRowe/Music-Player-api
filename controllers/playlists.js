@@ -4,7 +4,7 @@ import { NotFound } from '../utils/errors.js'
 
 const router = express.Router()
 
-//create playlist - NEED TO SEE IMAGE UPLOAD LESSON TO COMPLETE
+//create playlist 
 router.post("/", async(req, res, next) =>{
     try {
         req.body.owner = req.owner
@@ -35,7 +35,32 @@ router.get("/:playlistId", async(req, res, next) =>{
     }
 })
 // update playlsit
-
+router.put("/:playlistId", async(req, res, next) =>{
+    try {
+        const { playlistId } = req.params
+        const playlist = await Playlist.findById(playlistId)
+        if(!playlist) throw new NotFound()
+        
+        const updatedPlaylist = await Playlist.findByIdAndUpdate(playlistId, req.body, {
+            returnDocument: 'after'
+        })
+        return res.status(200).json(updatedPlaylist)
+    } catch (error) {
+        next(error)
+    }
+})
 // delete playlist
+
+router.delete("/:playlistId", async(req, res, next) => {
+    try {
+        const { playlistId } = req.params
+        const playlist = await Playlist.findById(playlistId)
+        if(!playlist) throw new NotFound()
+        await Playlist.findByIdAndDelete(playlistId)
+        return res.sendStatus(204)
+    } catch (error) {
+        next(error)
+    }
+})
 
 export default router
