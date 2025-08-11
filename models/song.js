@@ -9,6 +9,7 @@ const songSchema = new mongoose.Schema({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     default: [],
   },
+  url: { type: String },
 });
 
 const Song = mongoose.model("Song", songSchema);
