@@ -1,11 +1,12 @@
 import express from 'express'
 import Playlist from '../models/playlist.js'
 import { NotFound } from '../utils/errors.js'
+import verifyToken from '../middleware/verifyToken.js'
 
 const router = express.Router()
 
 //create playlist 
-router.post("/", async(req, res, next) =>{
+router.post("/", verifyToken, async(req, res, next) =>{
     try {
         req.body.owner = req.owner
         const playlist = await Playlist.create(req.body)
@@ -26,7 +27,7 @@ router.get("/", async(req, res, next) =>{
 // get individual playlist
 router.get("/:playlistId", async(req, res, next) =>{
     try {
-        const playlistId = req.params
+        const {playlistId} = req.params
         const playlist = await Playlist.findById(playlistId)
         if(!playlist) throw new NotFound()
         return res.status(200).json(playlist)
