@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 
-const movieSchema = new mongoose.Schema({
-    title: {type: String, required: ['You need to add a movie title.', true]},
+const playlistSchema = new mongoose.Schema({
+    title: {type: String, required: ['You need to add a playlist title.', true]},
     director: {type: String, required: ['You need to add a director.', true]},
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 }, {
@@ -11,6 +11,6 @@ const movieSchema = new mongoose.Schema({
 })
 
 
-const Movie = mongoose.model('Movie', movieSchema)
+const Playlist = mongoose.model('Playlist', playlistSchema)
 
-export default Movie
+export default Playlist

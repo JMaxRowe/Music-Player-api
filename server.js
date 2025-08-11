@@ -23,7 +23,7 @@ app.get('/protected-route', verifyToken, (req, res, next) => {
 })
 
 app.use('/api/auth', userRouter)
-app.use('/api/movies', movieRouter)
+app.use('/api/movies', playlistRouter)
 
 app.use(notFoundHandler)
 
