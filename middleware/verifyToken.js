@@ -16,6 +16,7 @@ const verifyToken = async (req, res, next) => {
         if (!foundUser)throw new Unauthorized('User does not exist.')
 
         req.user = foundUser
+        req.owner = foundUser._id
         
         next()
     } catch (error) {
