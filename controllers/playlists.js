@@ -8,7 +8,7 @@ const router = express.Router()
 //create playlist 
 router.post("/", verifyToken, async(req, res, next) =>{
     try {
-        req.body.owner = req.owner
+        req.body.owner = req.user._id || req.owner
         const playlist = await Playlist.create(req.body)
         return res.status(201).json(playlist)
     } catch (error) {
@@ -18,7 +18,7 @@ router.post("/", verifyToken, async(req, res, next) =>{
 //get all playlists
 router.get("/", async(req, res, next) =>{
     try {
-        const playlists = await Playlist.find()
+        const playlists = await Playlist.find().populate('owner')
         return res.status(200).json(playlists)
     } catch (error) {
         next(error)
@@ -28,7 +28,7 @@ router.get("/", async(req, res, next) =>{
 router.get("/:playlistId", async(req, res, next) =>{
     try {
         const {playlistId} = req.params
-        const playlist = await Playlist.findById(playlistId)
+        const playlist = await Playlist.findById(playlistId).populate('owner')
         if(!playlist) throw new NotFound('Playlist not found')
         return res.status(200).json(playlist)
     } catch (error) {
