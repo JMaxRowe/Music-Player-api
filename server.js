@@ -25,7 +25,7 @@ app.get("/protected-route", verifyToken, (req, res, next) => {
 app.use("/api/auth", userRouter);
 app.use("/api/playlists", playlistRouter);
 app.use("/api/songs", songRouter);
-app.use("/api/profile", profileRouter);
+app.use("/api/user", profileRouter);
 
 app.use(notFoundHandler);
 
