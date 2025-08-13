@@ -10,8 +10,9 @@ const router = express.Router();
 router.get("/:userId/liked-songs", verifyToken, async (req, res, next) => {
   try {
     const userId = req.params.userId;
+    const user = await User.findById(userId);
     const likedSongs = await Song.find({ userLikes: userId });
-    return res.json(likedSongs);
+    return res.json({ likedSongs, user });
   } catch (error) {
     next(error);
   }
@@ -24,8 +25,9 @@ router.get(
   async (req, res, next) => {
     try {
       const userId = req.params.userId;
+      const user = await User.findById(userId);
       const createdPlaylists = await Playlist.find({ owner: userId });
-      return res.json(createdPlaylists);
+      return res.json({ createdPlaylists, user });
     } catch (error) {
       next(error);
     }
@@ -39,10 +41,11 @@ router.get(
   async (req, res, next) => {
     try {
       const userId = req.params.userId;
+      const user = await User.findById(userId);
       const bookmarkedPlaylists = await Playlist.find({
         userBookmarks: userId,
       });
-      return res.json(bookmarkedPlaylists);
+      return res.json({ bookmarkedPlaylists, user });
     } catch (error) {
       next(error);
     }

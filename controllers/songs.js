@@ -8,7 +8,7 @@ import { NotFound, Forbidden } from "../utils/errors.js";
 const router = express.Router();
 
 // index - display all songs
-router.get("/songs", async (req, res, next) => {
+router.get("", async (req, res, next) => {
   try {
     const songs = await Song.find();
     return res.json(songs);
