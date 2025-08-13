@@ -7,6 +7,7 @@ import userRouter from "./controllers/users.js";
 import playlistRouter from "./controllers/playlists.js";
 import songRouter from "./controllers/songs.js";
 import profileRouter from "./controllers/profile.js";
+import userCollectionRouter from "./controllers/userCollection.js";
 
 import Playlist from "./models/playlist.js";
 import Song from "./models/song.js";
@@ -65,6 +66,7 @@ app.use("/api/auth", userRouter);
 app.use("/api/playlists", playlistRouter);
 app.use("/api/songs", songRouter);
 app.use("/api/profile", profileRouter);
+app.use("/api/user", userCollectionRouter);
 
 app.use(notFoundHandler);
 
