@@ -50,9 +50,9 @@ const seedSongs = [
     url: "",
   },
   {
-    title: "HP_OfficeJet_binep5",
-    artist: "Not sure",
-    album: "Not sure",
+    title: "HP_OfficeJet",
+    artist: "Harris Heller",
+    album: "Assassin",
     userLikes: [],
     url: "https://res.cloudinary.com/dhdhyhahn/video/upload/v1755082364/6._HP_OfficeJet_binep5.wav",
   },
