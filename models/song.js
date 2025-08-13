@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 const songSchema = new mongoose.Schema({
   title: { type: String, required: [true, `You need to add a song title.`] },
   artist: { type: String, required: [true, `You need to add a artist.`] },
-  duration: { type: Number },
   album: { type: String },
   userLikes: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
