@@ -42,7 +42,7 @@ router.post("/:songId/add-to-playlist", verifyToken, async (req, res, next) => {
 });
 
 // user likes a song
-router.post("/:songId/like", verifyToken, async (req, res, next) => {
+router.put("/:songId/like", verifyToken, async (req, res, next) => {
   try {
     const song = await Song.findById(req.params.songId);
     if (!song) throw new NotFound("Song not found.");
