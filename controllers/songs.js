@@ -67,7 +67,7 @@ router.delete("/:songId/like", verifyToken, async (req, res, next) => {
     const userId = req.user._id;
     if (song.userLikes.includes(userId)) {
       song.userLikes = song.userLikes.filter((userLike) => {
-        return userLike !== userId;
+        return userLike.toString() !== userId.toString();
       });
       await song.save();
     }
