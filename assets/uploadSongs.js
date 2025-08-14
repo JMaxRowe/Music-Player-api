@@ -56,6 +56,13 @@ const seedSongs = [
     userLikes: [],
     url: "https://res.cloudinary.com/dhdhyhahn/video/upload/v1755082364/6._HP_OfficeJet_binep5.wav",
   },
+  {
+    title: "Argyle Assassin Sweater",
+    artist: "Harris Heller",
+    album: "Assassin",
+    userLikes: [],
+    url: "https://res.cloudinary.com/dhdhyhahn/video/upload/v1755082372/7._Argyle_Assassin_Sweater_erl6yp.wav",
+  },
 ];
 
 // 3. Upload the songs
