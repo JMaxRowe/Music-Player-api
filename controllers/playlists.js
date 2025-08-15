@@ -129,6 +129,7 @@ router.patch(
       const { songId } = req.body;
       const playlist = await Playlist.findById(playlistId);
       if (!playlist) throw new NotFound("Playlist not found");
+      if (!songId) throw new NotFound("Song not found");
       if (!playlist.owner.equals(req.user._id))
         throw new Forbidden(
           "You don't have the permission to delete this song."
