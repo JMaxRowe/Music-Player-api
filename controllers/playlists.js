@@ -118,4 +118,30 @@ router.delete("/:playlistId/bookmark", verifyToken, async (req, res, next) => {
     next(error);
   }
 });
+
+// remove a song from the playlist
+router.patch(
+  "/:playlistId/remove-songId",
+  verifyToken,
+  async (req, res, next) => {
+    try {
+      const { playlistId } = req.params;
+      const { songId } = req.body;
+      const playlist = await Playlist.findById(playlistId);
+      if (!playlist) throw new NotFound("Playlist not found");
+      if (!playlist.owner.equals(req.user._id))
+        throw new Forbidden(
+          "You don't have the permission to delete this playlist."
+        );
+      playlist.songs = playlist.songs.filter(
+        (song) => song.toString() !== songId
+      );
+      await playlist.save();
+      return res.json(playlist);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export default router;
