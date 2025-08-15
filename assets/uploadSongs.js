@@ -8,48 +8,6 @@ dotenv.config();
 // 2. Songs to be uploaded into the database
 const seedSongs = [
   {
-    title: "Riptide",
-    artist: "Vance Joy",
-    album: "Dream Your Life Away",
-    userLikes: [],
-    url: "",
-  },
-  {
-    title: "Stitches",
-    artist: "Shawn Mendes",
-    album: "Handwritten",
-    userLikes: [],
-    url: "",
-  },
-  {
-    title: "Blinding Lights",
-    artist: "The Weeknd",
-    album: "After Hours",
-    userLikes: [],
-    url: "",
-  },
-  {
-    title: "Roar",
-    artist: "Katy Perry",
-    album: "PRISM",
-    userLikes: [],
-    url: "",
-  },
-  {
-    title: "Shape of You",
-    artist: "Ed Sheeran",
-    album: "Divide",
-    userLikes: [],
-    url: "",
-  },
-  {
-    title: "Blank Space",
-    artist: "Taylor Swift",
-    album: "1989",
-    userLikes: [],
-    url: "",
-  },
-  {
     title: "HP OfficeJet",
     artist: "Harris Heller",
     album: "Assassin",
