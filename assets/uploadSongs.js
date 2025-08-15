@@ -50,7 +50,7 @@ const seedSongs = [
     url: "",
   },
   {
-    title: "HP_OfficeJet",
+    title: "HP OfficeJet",
     artist: "Harris Heller",
     album: "Assassin",
     userLikes: [],
@@ -62,6 +62,41 @@ const seedSongs = [
     album: "Assassin",
     userLikes: [],
     url: "https://res.cloudinary.com/dhdhyhahn/video/upload/v1755082372/7._Argyle_Assassin_Sweater_erl6yp.wav",
+  },
+  {
+    title: "The Only Thing They Fear is You",
+    artist: "Mick Gordon",
+    album: "Doom Eternal",
+    userLikes: [],
+    url: "https://res.cloudinary.com/dhdhyhahn/video/upload/v1755119556/22._The_Only_Thing_They_Fear_Is_You_gtizfx.flac",
+  },
+  {
+    title: "The Super Gore Nest",
+    artist: "Mick Gordon",
+    album: "Doom Eternal",
+    userLikes: [],
+    url: "https://res.cloudinary.com/dhdhyhahn/video/upload/v1755119547/21._The_Super_Gore_Nest_bfhfpm.flac",
+  },
+  {
+    title: "MeatHook",
+    artist: "Mick Gordon",
+    album: "Doom Eternal",
+    userLikes: [],
+    url: "https://res.cloudinary.com/dhdhyhahn/video/upload/v1755203340/54._Meathook_k2g2us.flac",
+  },
+  {
+    title: "Super Shotgun Reunion",
+    artist: "Mick Gordon",
+    album: "Doom Eternal",
+    userLikes: [],
+    url: "https://res.cloudinary.com/dhdhyhahn/video/upload/v1755203291/35._Super_Shotgun_Reunion_lo5xpk.flac",
+  },
+  {
+    title: "Doom Hunted",
+    artist: "Mick Gordon",
+    album: "Doom Eternal",
+    userLikes: [],
+    url: "https://res.cloudinary.com/dhdhyhahn/video/upload/v1755203321/25._Doom_Hunted_oem49x.flac",
   },
 ];
 

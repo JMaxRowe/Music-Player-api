@@ -131,7 +131,7 @@ router.patch(
       if (!playlist) throw new NotFound("Playlist not found");
       if (!playlist.owner.equals(req.user._id))
         throw new Forbidden(
-          "You don't have the permission to delete this playlist."
+          "You don't have the permission to delete this song."
         );
       playlist.songs = playlist.songs.filter(
         (song) => song.toString() !== songId
